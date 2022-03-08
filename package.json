@@ -8,9 +8,9 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "start": "npm run build && electron .",
-    "package-linux": "npm run build && electron-packager . messdienerplaner --platform linux --arch x64 --out dist/ --icon=img/logo_color1.png",
-    "package-windows": "npm run build && electron-packager . messdienerplaner --platform win32 --arch x64 --out dist/ --icon=img/logo_color1.ico",
-    "package-mac": "npm run build && electron-packager . messdienerplaner --platform darwin --arch x64 --out dist/ --icon=img/logo_color1.icns"
+    "package-linux": "npm run build && electron-packager . list-randomizer --platform linux --arch x64 --out dist/ --icon=img/logo.png",
+    "package-windows": "npm run build && electron-packager . list-randomizer --platform win32 --arch x64 --out dist/ --icon=img/logo.ico",
+    "package-mac": "npm run build && electron-packager . list-randomizer --platform darwin --arch x64 --out dist/ --icon=img/logo.icns"
   },
   "author": "Björn Bousart - bjoernbousart.de",
   "license": "MIT",
