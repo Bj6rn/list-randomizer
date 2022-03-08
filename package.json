@@ -1,0 +1,33 @@
+{
+  "name": "list-randomizer",
+  "version": "1.0.0",
+  "description": "Save keywordlists in this nice looking app and get a randomized keyword out of your saved lists, whenever you want. Now you can just let the app decide what too cook for lunch or which of your favourite movies to rewatch in the evening.",
+  "main": "./electron/index.js",
+  "private": true,
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "start": "npm run build && electron .",
+    "package-linux": "npm run build && electron-packager . messdienerplaner --platform linux --arch x64 --out dist/ --icon=img/logo_color1.png",
+    "package-windows": "npm run build && electron-packager . messdienerplaner --platform win32 --arch x64 --out dist/ --icon=img/logo_color1.ico",
+    "package-mac": "npm run build && electron-packager . messdienerplaner --platform darwin --arch x64 --out dist/ --icon=img/logo_color1.icns"
+  },
+  "author": "Björn Bousart - bjoernbousart.de",
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-node-resolve": "^11.0.0",
+    "electron": "^17.1.0",
+    "electron-packager": "^15.4.0",
+    "rollup": "^2.3.4",
+    "rollup-plugin-css-only": "^3.1.0",
+    "rollup-plugin-livereload": "^2.0.0",
+    "rollup-plugin-svelte": "^7.0.0",
+    "rollup-plugin-terser": "^7.0.0",
+    "svelte": "^3.0.0"
+  },
+  "dependencies": {
+    "electron-db": "^0.15.7",
+    "sirv-cli": "^2.0.0"
+  }
+}
