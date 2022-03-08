@@ -3,7 +3,6 @@ const electron = require('electron');
 const path = require('path');
 const { join } = require('path');
 const db = require('electron-db');
-const { each } = require('svelte/internal');
 
 const {app, BrowserWindow, ipcMain} = electron;
 const isDev = !app.isPackaged;
