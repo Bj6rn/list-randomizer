@@ -2,8 +2,8 @@
 Save keywordlists in this nice looking app and get a randomized keyword out of your saved lists, whenever you want. Now you can just let the app decide what too cook for lunch or which of your favourite movies to rewatch in the evening. Programmend in javascript with electron and svelte frameworks.
 
 <p align="center">
-  <img src="img/list-randomizer_screenshot_1.png" width="49%">
-  <img src="img/list-randomizer_screenshot_2.png" width="49%">
+  <img src="public/img/list-randomizer_screenshot_1.png" width="49%">
+  <img src="public/img/list-randomizer_screenshot_2.png" width="49%">
 </p>
 
 ## features
