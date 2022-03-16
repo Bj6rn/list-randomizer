@@ -31,7 +31,7 @@ function main() {
         app.quit();
     });
 
-    if (isDev) window.webContents.openDevTools();
+    if (isDev) window.webContents.openDevTools(); 
 }
 
 //creates database in app folder if it not already exist
@@ -69,7 +69,7 @@ ipcMain.on("read-lists", (event, args) => {
 });
 
 ipcMain.on("add-list", (event, obj) => {
-    let data = { id: 0, name: obj.name, items: []};
+    let data = { id: 0, name: obj.name, items: obj.items };
     db.insertTableContent(dbName, dbLocation, data, (succ, msg) => {
         console.log("Message: " + msg);
     });

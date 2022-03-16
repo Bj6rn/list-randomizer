@@ -1,6 +1,6 @@
 <script>
 	let mainview = true;
-	let modal;
+	let modal = false;
 	let activeList = {id: "", name: "", items: []};
 	let randomDraw = {id: "", name: "", stats: ""};
 	let lists = [];
@@ -22,7 +22,7 @@
 		let usertext = document.querySelector("#usertext").value
         document.querySelector("#usertext").value = "";
 		
-		window.api.addList( {name: usertext} );
+		window.api.addList( { name: usertext, items: [] } );
 	}
 
 	function openList(list) {
@@ -34,6 +34,18 @@
 
 	function removeList(list) {
 		window.api.deleteList(list.id);
+		Snackbar.show({
+			text: `List "${list.name}" got deleted!`,
+			actionText: 'undo',
+			actionTextColor: '#33b96b',
+			backgroundColor: '#243038',	
+			duration: 3000,
+			onActionClick: (element) => {
+				element.style.opacity = 0;
+				//adds complete list back to database
+				window.api.addList( { name: list.name, items: list.items } );
+			} 
+		});
 	}
 
 	function goback() {
@@ -43,32 +55,23 @@
 	function getRandom(list) {
 		//if list contains no items, you get a error message
 		if (list.items.length < 1) {
-			console.log("No Items in this list")
+			Snackbar.show({
+				text: `List "${list.name}" is empty!`,
+				showAction: false,
+				backgroundColor: '#243038',	
+				duration: 2000
+			});
 			return
 		}
 		let listLength = list.items.length;
 		let array = list.items;
-
-		//Fisher-Yates Shuffle to shuffle the array
-		let m = array.length, t, j;
-		// While there remain elements to shuffle…
-		while (m) {
-			// Pick a remaining element…
-			j = Math.floor(Math.random() * m--);
-			// And swap it with the current element.
-			t = array[m];
-			array[m] = array[j];
-			array[j] = t;
-		}
 		
-		//picks one element out of the shuffeld array with a pseudo random int
+		//picks one element out of the array with a pseudo random int between 0 and array.length (min/max included)
 		let randomInt = Math.floor(Math.random() * listLength);
 		let randomItem = array[randomInt];
 
 		modal = "showRandom";
 		randomDraw = {id: randomItem.id, name: randomItem.name, stats: listLength}
-		console.log(array);
-		console.log(randomItem);
 	}
 
 	function addItem(listId) {
@@ -78,8 +81,20 @@
 		window.api.addItem( listId, {name: usertext} );
 	}
 
-	function deleteItem(listId, itemId) {
-		window.api.deleteItem(listId, itemId);
+	function deleteItem(listId, item) {
+		window.api.deleteItem(listId, item.id);
+		Snackbar.show({
+			text: `Item "${item.name}" got deleted!`,
+			actionText: 'undo',
+			actionTextColor: '#33b96b',
+			backgroundColor: '#243038',	
+			duration: 3000,
+			onActionClick: (element) => {
+				element.style.opacity = 0;
+				//adds item back to database
+				window.api.addItem( listId, {name: item.name} );
+			} 
+		});
 	}
 
 	function closeModal() {
@@ -134,7 +149,7 @@
 		{#each [...activeList.items].reverse() as item}
 			<li>
 				<span id="item{item.id}">{item.name}</span>
-				<div class="item-btn" title="delete" on:click={deleteItem(activeList.id, item.id)}>
+				<div class="item-btn" title="delete" on:click={deleteItem(activeList.id, item)}>
 					<img src="img/delete_forever_white_24dp.svg" alt="delete">
 				</div>
 			</li>
@@ -142,14 +157,9 @@
 		
 	</ul>
 {/if}
-{#if modal == "delete"}
+{#if modal == "showRandom"}
 	<section id="modal-section">
-		<div class="modal">
-
-		</div>
-	</section>
-{:else if modal == "showRandom"}
-	<section id="modal-section">
+		<div class="loader"></div>
 		<div class="modal">
 			<h4 id="category">{activeList.name}</h4>
 			<h1 id="winnerItem">{randomDraw.name}</h1>
@@ -160,7 +170,3 @@
 		</div>
 	</section>
 {/if}
-
-<style>
-
-</style>
