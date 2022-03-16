@@ -11,8 +11,8 @@ Save keywordlists in this nice looking app and get a randomized keyword out of y
   - build on electron and svelte framework
 - clean and easy to use user interface
 - saving keywordlists in a json database (`electron-db`)
+- fast undo button for accidentally deleted items
 - getting a random keyword out of your list just on a press of a button
-  - using the fisher-yates-shuffle as algorithm to get better random efficency
 
 ## getting started
 At first, please make sure that `node.js` is installed, so that you can use `node` and `npm`.
